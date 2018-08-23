@@ -1,59 +1,32 @@
 import {ClientFunction, Selector} from 'testcafe';
-fixture `ZK-Web-Test`.page
-`https://www.zkoss.org/zkdemo/shadow_elements/step_bar`;
-test('ZK demo: side bar example test', async t => {
-	console.log('check "need a car" button action');
-	await t.click(Selector('.outline.stepbar-button'));
-	await waitResponse(t);
-	let isCarBtnExist = await ClientFunction(() => jq('.outline.stepbar-button').length == 1)();
-	await t.expect(isCarBtnExist).notOk();
+fixture `ZK-Web-Test`.page `https://www.zkoss.org/zkdemo/shadow_elements/step_bar`;
+const addCarButton = Selector('button.stepbar-button').withText('Yes, I need a Car!');
+const backButton = Selector('button.stepbar-button').withText('Back');
+const nextButton = Selector('button.stepbar-button').withText('Next');
+const pageTitle = Selector('.page-title');
+const steps = Selector('.stepbar .step');
+const hasPageTitle = title => pageTitle.withText(title).exists;
 
-	console.log('check "next" button action');
-	await t.click(Selector('.primary.stepbar-button'));
-	await waitResponse(t);
-	let isPreBtnExist = await ClientFunction(() => jq('.secondary.stepbar-button').length)();
-	await t.expect(isPreBtnExist).ok();
-	await t.expect(await ClientFunction(() => jq('.page-title').text())()).eql('Accommodation');
-
-	console.log('check "back" button action');
-	await t.click(Selector('.secondary.stepbar-button'));
-	await waitResponse(t);
-	isPreBtnExist = await ClientFunction(() => jq('.secondary.stepbar-button').length)();
-	await t.expect(isPreBtnExist).notOk();
-	await t.expect(await ClientFunction(() => jq('.page-title').text())()).eql('Destination');
-
-	console.log('check "next" button flow');
-	await t.click(Selector('.primary.stepbar-button'));
-	await waitResponse(t);
-	isPreBtnExist = await ClientFunction(() => jq('.secondary.stepbar-button').length)();
-	await t.expect(isPreBtnExist).ok();
-	await t.expect(await ClientFunction(() => jq('.page-title').text())()).eql('Accommodation');
-	await t.click(Selector('.primary.stepbar-button'));
-	await waitResponse(t);
-	isPreBtnExist = await ClientFunction(() => jq('.secondary.stepbar-button').length)();
-	await t.expect(isPreBtnExist).ok();
-	await t.expect(await ClientFunction(() => jq('.page-title').text())()).eql('Rent Car');
-	await t.click(Selector('.primary.stepbar-button'));
-	await waitResponse(t);
-	isPreBtnExist = await ClientFunction(() => jq('.secondary.stepbar-button').length)();
-	await t.expect(isPreBtnExist).ok();
-	await t.expect(await ClientFunction(() => jq('.page-title').text())()).eql('Personal Details');
-	await t.click(Selector('.primary.stepbar-button'));
-	await waitResponse(t);
-	isPreBtnExist = await ClientFunction(() => jq('.secondary.stepbar-button').length)();
-	await t.expect(isPreBtnExist).ok();
-	await t.expect(await ClientFunction(() => jq('.page-title').text())()).eql('Payment');
-	await t.click(Selector('.primary.stepbar-button'));
-	await waitResponse(t);
-	isPreBtnExist = await ClientFunction(() => jq('.secondary.stepbar-button').length)();
-	await t.expect(isPreBtnExist).notOk();
-	await t.expect(await ClientFunction(() => jq('.page-title').text())()).eql('Enjoy Holiday');
+test('ZK demo: step bar example test', async t => {
+    await t.expect(hasPageTitle('Destination')).ok()
+    	.expect(backButton.exists).notOk('Back button should not exist')
+        .expect(addCarButton.exists).ok('Add car button should exist')
+        .expect(steps.count).eql(5, 'There should be 5 steps initially')
+        
+        .click(addCarButton)
+        .expect(addCarButton.exists).notOk("Add car button should disappear")
+        .expect(steps.count).eql(6, 'There should be 6 steps')
+        
+        .click(nextButton)
+        .expect(backButton.exists).ok('Back button should exist')
+        .expect(hasPageTitle('Accommodation')).ok()
+        .click(nextButton)
+        .expect(hasPageTitle('Rent Car')).ok()
+        .click(nextButton)
+        .expect(hasPageTitle('Personal Details')).ok()
+        .click(nextButton)
+        .expect(hasPageTitle('Payment')).ok()
+        .click(nextButton)
+        .expect(hasPageTitle('Enjoy Holiday')).ok()
+        .expect(nextButton.exists).notOk('Next button should be gone');
 });
-
-async function waitResponse(t) {
-	await t.wait(300);
-    while (await ClientFunction(() => !!zAu.processing() || !!jq.timers.length)()) {
-        console.log('waiting..');
-        await t.wait(300);
-    }
-}
