@@ -9,7 +9,7 @@ const hasPageTitle = title => pageTitle.withText(title).exists;
 
 test('ZK demo: step bar example test', async t => {
     await t.expect(hasPageTitle('Destination')).ok()
-    	.expect(backButton.exists).notOk('Back button should not exist')
+        .expect(backButton.exists).notOk('Back button should not exist')
         .expect(addCarButton.exists).ok('Add car button should exist')
         .expect(steps.count).eql(5, 'There should be 5 steps initially')
         
