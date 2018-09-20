@@ -11,7 +11,7 @@ npm install -g testcafe
 testcafe chrome test1.js
 ```
 
-## Infomation
+## Information
 Test target: https://www.zkoss.org/zkdemo/shadow_elements/step_bar
 
 ## License
