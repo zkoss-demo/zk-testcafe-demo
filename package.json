@@ -1,0 +1,26 @@
+{
+  "name": "zktestcafedemo",
+  "version": "1.0.0",
+  "description": "A demo for using testcafe in ZK",
+  "main": "test1.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zkoss-demo/zk-testcafe-demo.git"
+  },
+  "keywords": [
+    "testcafe",
+    "zk"
+  ],
+  "author": "James",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/zkoss-demo/zk-testcafe-demo/issues"
+  },
+  "homepage": "https://github.com/zkoss-demo/zk-testcafe-demo#readme",
+  "devDependencies": {
+    "testcafe": "^0.22.0"
+  }
+}
