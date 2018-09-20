@@ -1,4 +1,4 @@
-import {ClientFunction, Selector} from 'testcafe';
+import {Selector} from 'testcafe';
 fixture `ZK-Web-Test`.page `https://www.zkoss.org/zkdemo/shadow_elements/step_bar`;
 const addCarButton = Selector('button.stepbar-button').withText('Yes, I need a Car!');
 const backButton = Selector('button.stepbar-button').withText('Back');
