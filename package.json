@@ -2,9 +2,8 @@
   "name": "zktestcafedemo",
   "version": "1.0.0",
   "description": "A demo for using testcafe in ZK",
-  "main": "test1.js",
   "scripts": {
-    "test": "test"
+    "demo": "testcafe chrome test1.js"
   },
   "repository": {
     "type": "git",
@@ -14,7 +13,8 @@
     "testcafe",
     "zk"
   ],
-  "author": "James",
+  "private": true,
+  "author": "JamesChu",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/zkoss-demo/zk-testcafe-demo/issues"
