@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "A demo for using testcafe in ZK",
   "scripts": {
-    "demo": "testcafe chrome test1.js"
+    "test": "testcafe chrome test1.js"
   },
   "repository": {
     "type": "git",

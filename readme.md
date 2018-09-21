@@ -7,7 +7,7 @@ Demo Project for using Testcafe in ZK web testing.
 npm install
 
 #run demo
-npm run demo
+npm test
 
 #or (if testcafe is installed globally)
 testcafe chrome test1.js
