@@ -9,7 +9,7 @@ npm install
 #run demo
 npm run demo
 
-#or
+#or (if testcafe is installed globally)
 testcafe chrome test1.js
 ```
 
